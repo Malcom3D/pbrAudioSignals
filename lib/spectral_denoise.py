@@ -16,7 +16,7 @@
 # along with pbrAudio.  If not, see <https://www.gnu.org/licenses/>.
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-import numpy numpy as np
+import numpy as np
 import numba as nb
 from scipy import signal
 
