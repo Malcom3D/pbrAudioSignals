@@ -64,7 +64,7 @@ def _box_smooth_1d_local(x: np.ndarray, half: np.int64) -> np.ndarray:
     lo = 0
     hi = 0
     for i in range(n):
-        while hi < min(n(n, i + half + 1):
+        while hi < min(n, i + half + 1):
             acc += x[hi]
             hi += 1
         while lo < max(0, i - half):
