@@ -31,7 +31,7 @@ def _tri_smooth_1d(x: np.ndarray, radius: np.int64) -> np.ndarray:
     """
     n = x.shape[0]
     out = np.empty(n, dtype=np.float32)
-    if n n == 0:
+    if n == 0:
         return out
     if radius <= 0:
         for i in range(n):
