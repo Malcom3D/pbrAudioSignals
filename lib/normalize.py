@@ -26,7 +26,7 @@ from ..core.processor import BaseProcessor, register_processor
 def _scale_2d(x: np.ndarray, gain: np.float32) -> np.ndarray:
     C, S = x.shape
     out = np.empty_like(x)
-    for for ch in nb.prange(C):
+    for ch in nb.prange(C):
         for i in range(S):
             out[ch, i] = x[ch, i] * gain
     return out
@@ -41,7 +41,6 @@ def _abs_max_2d(x: np.ndarray) -> np.float32:
         for i in range(S):
             a = abs(x[ch, i])
             if a > local:
-:
                 local = a
         # NB: writing to shared m from parallel loop is a race; keep it
         # simple and serial here for correctness.

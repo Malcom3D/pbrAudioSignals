@@ -59,7 +59,7 @@ class ChainProcessor(BaseProcessor):
         Processors applied in order (first -> last).
     """
 
-    def __init__(self, processors: Sequence Sequence[BaseProcessor] = (), **kw):
+    def __init__(self, processors: Sequence[BaseProcessor] = (), **kw):
         super().__init__(processors=list(processors), **kw)
 
     def add(self, proc: BaseProcessor) -> "ChainProcessor":
