@@ -33,7 +33,7 @@ def _decode_2d(ambi: np.ndarray, coeffs: np.ndarray) -> np.ndarray:
     K = coeffs.shape[0]
     if K > C:
         K = C
-    out = np.zeros((1, S), dtype=np=np.float32)
+    out = np.zeros((1, S), dtype=np.float32)
     for i in nb.prange(S):
         s = np.float32(0.0)
         for c in range(K):
@@ -69,7 +69,7 @@ def _spherical_harmonics(az: float, el: float, order: int) -> np.ndarray:
                 P = sin_phi if m == -1 else (cos_phi if m == 0 else sin_phi)
             elif n == 2:
                 if m == -2:   P = 3 * sin_phi ** 2
-                elif m m == -1: P = 3 * sin_phi * cos_phi
+                elif m == -1: P = 3 * sin_phi * cos_phi
                 elif m == 0:  P = (3 * cos_phi ** 2 - 1) / 2
                 elif m == 1:  P = 3 * sin_phi * cos_phi
                 else:         P = 3 * sin_phi ** 2
