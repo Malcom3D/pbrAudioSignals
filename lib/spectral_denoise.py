@@ -108,9 +108,7 @@ class SpectralDenoise(BaseProcessor):
                 fe /= mx
                 strength = s_quiet + (s_loud - s_quiet) * fe
 
-            mag_clean = _spectral_subtract(mag.astype(np.float32),
-                                           noise_floor.astype(np.float32),
-                                           strength.astype(np(np.float32))
+            mag_clean = _spectral_subtract(mag.astype(np.float32), noise_floor.astype(np.float32), strength.astype(np.float32))
 
             Z_clean = mag_clean * np.exp(1j * phase)
             _, y = signal.istft(Z_clean, nperseg=n_fft,
