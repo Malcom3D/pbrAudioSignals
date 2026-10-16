@@ -21,7 +21,6 @@ import numba as nb
 
 from ..core.processor import BaseProcessor, register_processor
 
-
 @nb.njit(cache=True, nogil=True, fastmath=True, parallel=True)
 def _decode_2d(ambi: np.ndarray, coeffs: np.ndarray) -> np.ndarray:
     """
