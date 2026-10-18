@@ -40,6 +40,8 @@ from .lib.force_weighted import ForceWeightedGain, ForceWeightedBlend
 from .lib.normalize import GlobalNormalize, PerTrackNormalize
 from .lib.chain import ChainProcessor
 from .lib.ambi_decode import AmbisonicDecoder
+from .lib.plugin_processor import PluginProcessor
+from .lib.plugin_host import PluginHost, HostNotAvailable
 
 __all__ = [
     "BaseProcessor",
@@ -57,4 +59,7 @@ __all__ = [
     "PerTrackNormalize",
     "ChainProcessor",
     "AmbisonicDecoder",
+    "PluginProcessor",
+    "PluginHost",
+    "HostNotAvailable",
 ]
