@@ -21,7 +21,6 @@ import numba as nb
 
 from ..core.processor import BaseProcessor, register_processor
 
-
 @nb.njit(cache=True, nogil=True, fastmath=True, parallel=True)
 def _envelope_shape_2d(x: np.ndarray, env: np.ndarray,
                        depth: np.float32) -> np.ndarray:

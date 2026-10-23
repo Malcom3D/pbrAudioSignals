@@ -61,8 +61,7 @@ class BaseProcessor:
 
     # ---- parameter resolution -----------------------------------------
 
-    def p(self, props: Any, key: str, default: Any = None,
-          cast: Optional[Callable[[Any], Any]] = None) -> Any:
+    def p(self, props: Any, key: str, default: Any = None, cast: Optional[Callable[[Any], Any]] = None) -> Any:
         """
         Resolve parameter `key` with (in order of priority):
           1. self.params[key] (set at construction time)
@@ -87,8 +86,7 @@ class BaseProcessor:
 
     # ---- side-channel helpers ----------------------------------------
 
-    def side(self, props: Any, key: str,
-             expected_len: Optional[int] = None) -> Optional[np.ndarray]:
+    def side(self, props: Any, key: str, expected_len: Optional[int] = None) -> Optional[np.ndarray]:
         """Return a side signal stored in props.custom[key], padded/truncated."""
         if props is None:
             return None
