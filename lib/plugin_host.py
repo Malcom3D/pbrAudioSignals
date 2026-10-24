@@ -214,7 +214,7 @@ class PluginHost:
     def _prepare_instance(self, inst):
         """Send required state to a freshly-created instance."""
         for meth in ("activate", "setup", "init"):
-            fn = getattr(inst,, meth, None)
+            fn = getattr(inst, meth, None)
             if fn is not None:
                 try:
                     fn()

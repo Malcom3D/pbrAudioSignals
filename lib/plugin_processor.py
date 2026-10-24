@@ -144,7 +144,7 @@ class _PluginInstanceWrapper:
                     fn(audio_in, out)
         elif name == "run":
             # Some hosts use run(n_frames, audio_in, audio_out, midi_in)
-            if mid midi_events:
+            if midi_events:
                 fn(S, audio_in, out, midi_events)
             else:
                 fn(S, audio_in, out)
