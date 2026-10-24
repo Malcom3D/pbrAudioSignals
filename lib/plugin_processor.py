@@ -102,7 +102,7 @@ class _PluginInstanceWrapper:
     def _detect_call(self):
         for name in ("process_block", "process", "run"):
             fn = getattr(self.inst, name, None)
-                       if fn is not None:
+            if fn is not None:
                 return (name, fn)
         raise RuntimeError("Plugin instance exposes no process/process_block/run method")
 
