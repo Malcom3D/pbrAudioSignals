@@ -42,6 +42,10 @@ from .lib.chain import ChainProcessor
 from .lib.ambi_decode import AmbisonicDecoder
 from .lib.plugin_processor import PluginProcessor
 from .lib.plugin_host import PluginHost, HostNotAvailable
+from .lib.force_dynamic_amplify import ForceDynamicAmplify
+from .lib.force_phase_align import ForcePhaseAlign
+from .lib.force_spectral_denoise import ForceSpectralDenoise
+from .lib.force_adaptive_smoothing import ForceAdaptiveSmoothing
 
 __all__ = [
     "BaseProcessor",
@@ -62,4 +66,8 @@ __all__ = [
     "PluginProcessor",
     "PluginHost",
     "HostNotAvailable",
+    "ForceDynamicAmplify",
+    "ForcePhaseAlign",
+    "ForceSpectralDenoise",
+    "ForceAdaptiveSmoothing",
 ]
