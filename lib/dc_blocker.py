@@ -20,7 +20,7 @@ import numpy as np
 import numba as nb
 
 from ..core.processor import BaseProcessor, register_processor
-from ..core.groups import GENERIC, AUDIO_FORCE, AUDIO_SIGNAL
+from ..core.groups import GENERIC, AUDIO_FORCE, ACOUSTIC_PRESSURE, AUDIO_SIGNAL
 
 
 @nb.njit(cache=True, nogil=True, fastmath=True)
@@ -44,7 +44,7 @@ def _dc_block_2d(x: np.ndarray, alpha: np.float32) -> np.ndarray:
         y[ch] = _dc_block_1d(x[ch], alpha)
     return y
 
-@register_processor("adaptive_noise_gate", track_group=AUDIO_SIGNAL, also_valid_for={ACOUSTIC_PRESSURE, GENERIC})
+@register_processor("dc_blocker", track_group=GENERIC, also_valid_for={AUDIO_FORCE, ACOUSTUSTIC_PRESSURE, AUDIO_SIGNAL})
 class DCBlocker(BaseProcessor):
     """
     DC-offset removal via a one-pole high-pass filter.
