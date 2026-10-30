@@ -99,7 +99,7 @@ def _adaptive_gate_2d(x: np.ndarray,
             out[ch, i] = x[ch, i] * g
     return out
 
-@register_processor("adaptive_noise_gate", track_group=AUDIO_SIGNAL, also_valid_for={ACOUSTIC_PRESSURE, GENERIC})
+@register_processor("adaptive_noise_gate", track_group=AUDIO_SIGNAL, also_valid_for={ACOUSTIC_PRESSURE, AUDIO_FORCE, GENERIC})
 class AdaptiveNoiseGate(BaseProcessor):
     """
     Adaptive noise gate driven by an optional force-envelope side channel
