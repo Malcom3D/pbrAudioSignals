@@ -20,7 +20,7 @@ import numpy as np
 import numba as nb
 
 from ..core.processor import BaseProcessor, register_processor
-from ..core.groups import GENERIC
+from ..core.groups import MODAL_DISPLACEMENT, GENERIC
 
 @nb.njit(cache=True, nogil=True, fastmath=True, parallel=True)
 def _scale_2d(x: np.ndarray, gain: np.float32) -> np.ndarray:
@@ -52,7 +52,7 @@ def _abs_max_2d(x: np.ndarray) -> np.float32:
                 m = a
     return m
 
-@register_processor("per_track_normalize", track_group=GENERIC)
+@register_processor("per_track_normalize", track_group=GENERIC, also_valid_for={MODAL_DISPLACEMENT})
 class PerTrackNormalize(BaseProcessor):
     """
     Normalize each input signal to a target peak.
