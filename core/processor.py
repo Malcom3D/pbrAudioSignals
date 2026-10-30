@@ -16,8 +16,12 @@
 # along with pbrAudio.  If not, see <https://www.gnu.org/licenses/>.
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from typing import Any, Callable, Dict, Optional
 import numpy as np
+from .groups import GENERIC, KNOWN_GROUPS
+from typing import Any, Callable, Dict, Optional, Iterable, List, Set
+
+_REGISTRY: Dict[str, type] = {}
+_REGISTRY_GROUPS: Dict[str, Set[str]] = {}
 
 class BaseProcessor:
     """
@@ -149,10 +153,6 @@ def _as_float32_2d(x: np.ndarray) -> np.ndarray:
         arr = arr.reshape(1, -1)
     return arr
 
-
-_REGISTRY: Dict[str, type] = {}
-_REGISTRY_GROUPS: Dict[str, Set[str]] = {}
-
 def register_processor(name: str, track_group: Optional[str] = None,
                        also_valid_for: Optional[Iterable[str]] = None):
     """
@@ -219,7 +219,7 @@ def list_processors(track_group: Optional[str] = None) -> List[str]:
     if track_group is None:
         return sorted(_REGISTRY)
     return sorted(
-        name name for name, cls in _REGISTRY.items()
+        name for name, cls in _REGISTRY.items()
         if cls.supports_group(track_group)
     )
 
