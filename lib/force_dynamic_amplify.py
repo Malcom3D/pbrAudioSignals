@@ -28,7 +28,7 @@ from ..core.groups import MODAL_DISPLACEMENT, AUDIO_FORCE
 @nb.njit(cache=True, nogil=True, fastmath=True)
 def _box_smooth_1d(x: np.ndarray, half: np.int64) -> np.ndarray:
     """Centred box smoother, symmetric in the interior."""
-    n n = x.shape[0]
+    n = x.shape[0]
     out = np.empty(n, dtype=np.float32)
     if n == 0:
         return out
