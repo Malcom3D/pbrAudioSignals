@@ -44,7 +44,7 @@ def _dc_block_2d(x: np.ndarray, alpha: np.float32) -> np.ndarray:
         y[ch] = _dc_block_1d(x[ch], alpha)
     return y
 
-@register_processor("dc_blocker", track_group=GENERIC, also_valid_for={AUDIO_FORCE, ACOUSTUSTIC_PRESSURE, AUDIO_SIGNAL})
+@register_processor("dc_blocker", track_group=GENERIC, also_valid_for={AUDIO_FORCE, ACOUSTIC_PRESSURE, AUDIO_SIGNAL})
 class DCBlocker(BaseProcessor):
     """
     DC-offset removal via a one-pole high-pass filter.
