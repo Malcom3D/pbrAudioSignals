@@ -20,7 +20,7 @@ import numpy as np
 import numba as nb
 
 from ..core.processor import BaseProcessor, register_processor
-
+from ..core.groups import MODAL_DISPLACEMENT, AUDIO_FORCE
 
 @nb.njit(cache=True, nogil=True, fastmath=True)
 def _tri_smooth_1d(x: np.ndarray, radius: np.int64) -> np.ndarray:
@@ -96,8 +96,7 @@ def _adaptive_gauss_2d(x: np.ndarray,
 
     return out
 
-
-@register_processor("adaptive_gaussian")
+@register_processor("adaptive_gaussian", track_group=MODAL_DISPLACEMENT, also_valid_for={AUDIO_FORCE})
 class AdaptiveGaussianSmoothing(BaseProcessor):
     """
     Gaussian-like adaptive smoothing driven by an external force envelope.
@@ -108,6 +107,8 @@ class AdaptiveGaussianSmoothing(BaseProcessor):
     sigma_max       : float, default 3.0
     force_threshold : float, default 0.1
     """
+
+    required_side = {"force"}
 
     def __init__(self,
                  sigma_min: float = 0.5,

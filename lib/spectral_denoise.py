@@ -21,7 +21,7 @@ import numba as nb
 from scipy import signal
 
 from ..core.processor import BaseProcessor, register_processor
-
+from ..core.groups import AUDIO_SIGNAL, ACOUSTIC_PRESSURE
 
 @nb.njit(cache=True, nogil=True, fastmath=True, parallel=True)
 def _spectral_subtract(mag: np.ndarray, floor: np.ndarray,
@@ -43,8 +43,7 @@ def _spectral_subtract(mag: np.ndarray, floor: np.ndarray,
             out[f, t] = v
     return out
 
-
-@register_processor("spectral_denoise")
+@register_processor("spectral_denoise", track_group=AUDIO_SIGNAL, also_valid_for={ACOUSTIC_PRESSURE})
 class SpectralDenoise(BaseProcessor):
     """
     Non-destructive spectral subtraction.
@@ -58,6 +57,8 @@ class SpectralDenoise(BaseProcessor):
     reduction_strength_loud  : float, default 0.2  # force = 1
     noise_floor_percentile   : float, default 10.0
     """
+
+    required_side = {"force"}
 
     def __init__(self, n_fft: int = 2048, hop_length: int = None,
                  reduction_strength: float = 0.8,

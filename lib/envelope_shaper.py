@@ -20,6 +20,7 @@ import numpy as np
 import numba as nb
 
 from ..core.processor import BaseProcessor, register_processor
+from ..core.groups import AUDIO_FORCE, MODAL_DISPLACEMENT
 
 @nb.njit(cache=True, nogil=True, fastmath=True, parallel=True)
 def _envelope_shape_2d(x: np.ndarray, env: np.ndarray,
@@ -33,8 +34,7 @@ def _envelope_shape_2d(x: np.ndarray, env: np.ndarray,
                                      + depth * env[i])
     return out
 
-
-@register_processor("envelope_shaper")
+@register_processor("envelope_shaper", track_group=MODAL_DISPLACEMENT, also_valid_for={AUDIO_FORCE})
 class EnvelopeShaper(BaseProcessor):
     """
     Amplitude shaping driven by an external force envelope.
@@ -43,6 +43,7 @@ class EnvelopeShaper(BaseProcessor):
     ------
     depth : float, default 0.5   # 0 = bypass, 1 = fully driven by envelope
     """
+    required_side = {"force"}
 
     def __init__(self, depth: float = 0.5, **kw):
         super().__init__(depth=depth, **kw)

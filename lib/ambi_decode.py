@@ -20,6 +20,7 @@ import numpy as np
 import numba as nb
 
 from ..core.processor import BaseProcessor, register_processor
+from ..core.groups import AMBISONIC
 
 @nb.njit(cache=True, nogil=True, fastmath=True, parallel=True)
 def _decode_2d(ambi: np.ndarray, coeffs: np.ndarray) -> np.ndarray:
@@ -111,8 +112,7 @@ _DEFAULT_LAYOUTS = {
                  (0.0, 90.0)],            # VOG
 }
 
-
-@register_processor("ambi_decode")
+@register_processor("ambi_decode", track_group=AMBISONIC)
 class AmbisonicDecoder(BaseProcessor):
     """
     Decode an ambisonic buffer (C, S) into a multi-channel layout.

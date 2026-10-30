@@ -20,7 +20,7 @@ import numpy as np
 import numba as nb
 
 from ..core.processor import BaseProcessor, register_processor
-
+from ..core.groups import AUDIO_FORCE, MODAL_DISPLACEMENT
 
 @nb.njit(cache=True, nogil=True, fastmath=True, parallel=True)
 def _force_weighted_gain_2d(x: np.ndarray, force: np.ndarray,
@@ -93,8 +93,7 @@ def _force_weighted_blend_2d(dry: np.ndarray, wet: np.ndarray,
             out[ch, i] = dry[ch, i] * (np.float32(1.0) - w) + wet[ch, i] * w
     return out
 
-
-@register_processor("force_weighted_gain")
+@register_processor("force_weighted_gain", track_group=AUDIO_FORCE, also_valid_for={MODAL_DISPLACEMENT})
 class ForceWeightedGain(BaseProcessor):
     """
     Time-varying gain modulated by the force side-channel.
@@ -109,6 +108,8 @@ class ForceWeightedGain(BaseProcessor):
     smooth_ms      : float, default 5.0
     sample_rate    : int,   default 48000
     """
+
+    required_side = {"force"}
 
     def __init__(self, target_rms: float = 0.15,
                  gain_low: float = 0.3,
@@ -157,8 +158,7 @@ class ForceWeightedGain(BaseProcessor):
             smooth_radius,
         )
 
-
-@register_processor("force_weighted_blend")
+@register_processor("force_weighted_blend", track_group=AUDIO_FORCE, also_valid_for={MODAL_DISPLACEMENT})
 class ForceWeightedBlend(BaseProcessor):
     """
     Blend the incoming signal with a target signal based on force.
@@ -168,6 +168,8 @@ class ForceWeightedBlend(BaseProcessor):
     dry_wet          : float, default 0.85
     target_key       : str,   default "wet"   # props.custom[target_key]
     """
+
+    required_side = {"force"}
 
     def __init__(self, dry_wet: float = 0.85, target_key: str = "wet", **kw):
         super().__init__(dry_wet=dry_wet, target_key=target_key, **kw)
