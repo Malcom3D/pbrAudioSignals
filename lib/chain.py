@@ -21,9 +21,10 @@ import numpy as np
 from typing import Any, Dict, Iterable, List, Sequence, Optional
 
 from ..core.processor import BaseProcessor, register_processor, get_processor
+from ..core.groups import GENERIC
 
 # chain factory
-def build_chain(spec: List[Dict[str, Any]]) -> BaseProcessor:
+def build_chain(spec: List[Dict[str, Any]], track_group: Optional[str] = None) -> BaseProcessor:
     """
     Build a ChainProcessor from a declarative spec.
 
@@ -41,14 +42,12 @@ def build_chain(spec: List[Dict[str, Any]]) -> BaseProcessor:
     chain = ChainProcessor()
     for step in spec or []:
         t = step["type"]
-        cls = get_processor(t)
-        params = step.get("params", {}) or {}
-        proc = cls(**params)
+        cls = get_processor(t, track_group=track_group)
+        proc = cls(**(step.get("params") or {}))
         chain.add(proc)
     return chain
 
-
-@register_processor("chain")
+@register_processor("chain", track_group=GENERIC)
 class ChainProcessor(BaseProcessor):
     """
     Compose multiple processors into one.

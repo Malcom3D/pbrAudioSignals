@@ -16,7 +16,6 @@
 # along with pbrAudio.  If not, see <https://www.gnu.org/licenses/>.
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-# pbrAudioSignals/lib/midi_events.py
 """
 MIDI event representation for plugin side-channels.
 

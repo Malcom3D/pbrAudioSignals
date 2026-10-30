@@ -20,7 +20,7 @@ import numpy as np
 import numba as nb
 
 from ..core.processor import BaseProcessor, register_processor
-
+from ..core.groups import GENERIC, MODAL_DISPLACEMENT, AUDIO_FORCE
 
 @nb.njit(cache=True, nogil=True, fastmath=True)
 def _moving_average_1d(x: np.ndarray, w: np.int64) -> np.ndarray:
@@ -80,8 +80,7 @@ def _temporal_smooth_2d(x: np.ndarray, w: np.int64,
                 out[ch, i] = smoothed[i]
     return out
 
-
-@register_processor("temporal_smoothing")
+@register_processor("temporal_smoothing", track_group=GENERIC, also_valid_for={MODAL_DISPLACEMENT, AUDIO_FORCE})
 class TemporalSmoothing(BaseProcessor):
     """
     Sliding-window smoothing that preserves transients.

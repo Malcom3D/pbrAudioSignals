@@ -20,7 +20,7 @@ import numpy as np
 import numba as nb
 
 from ..core.processor import BaseProcessor, register_processor
-
+from ..core.groups import GENERIC
 
 @nb.njit(cache=True, nogil=True, fastmath=True, parallel=True)
 def _scale_2d(x: np.ndarray, gain: np.float32) -> np.ndarray:
@@ -52,8 +52,7 @@ def _abs_max_2d(x: np.ndarray) -> np.float32:
                 m = a
     return m
 
-
-@register_processor("per_track_normalize")
+@register_processor("per_track_normalize", track_group=GENERIC)
 class PerTrackNormalize(BaseProcessor):
     """
     Normalize each input signal to a target peak.
@@ -74,8 +73,7 @@ class PerTrackNormalize(BaseProcessor):
         gain = np.float32(target) / np.float32(peak)
         return _scale_2d(x, gain)
 
-
-@register_processor("global_normalize")
+@register_processor("global_normalize", track_group=GENERIC)
 class GlobalNormalize(BaseProcessor):
     """
     Normalize using a peak value provided externally.
@@ -91,6 +89,8 @@ class GlobalNormalize(BaseProcessor):
     target_peak  : float, default 0.95
     peak_key     : str,   default "global_peak"
     """
+
+#    required_side = {"target_peak"}
 
     def __init__(self, target_peak: float = 0.95, peak_key: str = "global_peak", **kw):
         super().__init__(target_peak=target_peak, peak_key=peak_key, **kw)

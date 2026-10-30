@@ -16,7 +16,6 @@
 # along with pbrAudio.  If not, see <https://www.gnu.org/licenses/>.
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-# pbrAudioSignals/lib/plugin_processor.py
 """
 BaseProcessor implementation that wraps an arbitrary plugin hosted
 through `minihost`.
@@ -62,6 +61,7 @@ from typing import Any, Dict, List, Optional, Sequence
 
 import numpy as np
 
+from ..core.groups import GENERIC
 from ..core.processor import BaseProcessor, register_processor
 from .midi_events import _to_minihost_input_events
 
@@ -172,8 +172,7 @@ class _PluginInstanceWrapper:
 
 # ----------------------------------------------------------------------
 
-
-@register_processor("plugin")
+@register_processor("plugin", track_group=GENERIC)
 class PluginProcessor(BaseProcessor):
     """
     Host a LADSPA / LV2 / VST2 / VST3 / AU plugin as a DAG processor.
@@ -182,6 +181,9 @@ class PluginProcessor(BaseProcessor):
     plugin wrapper reads its config from there. Load the plugin lazily,
     once, on first `process()` call.
     """
+
+#    required_side = {"plugin_params", "param_values"}
+    accepts_any_group = True
 
     def __init__(self,
                  path: str,
