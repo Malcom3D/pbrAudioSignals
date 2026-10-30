@@ -20,7 +20,7 @@ import numpy as np
 import numba as nb
 
 from ..core.processor import BaseProcessor, register_processor
-from ..core.groups import AUDIO_SIGNAL, ACOUSTIC_PRESSURE, AUDIO_FORCE, GENERIC
+from ..core.groups import AUDIO_SIGNAL, ACOUSTIC_PRESSURE, AUDIO_FORCE, MODAL_DISPLACEMENT, GENERIC
 
 @nb.njit(cache=True, nogil=True, fastmath=True)
 def _smooth_env_1d(env: np.ndarray, attack: np.int64, release: np.int64) -> np.ndarray:
@@ -99,7 +99,7 @@ def _adaptive_gate_2d(x: np.ndarray,
             out[ch, i] = x[ch, i] * g
     return out
 
-@register_processor("adaptive_noise_gate", track_group=AUDIO_SIGNAL, also_valid_for={ACOUSTIC_PRESSURE, AUDIO_FORCE, GENERIC})
+@register_processor("adaptive_noise_gate", track_group=AUDIO_SIGNAL, also_valid_for={ACOUSTIC_PRESSURE, AUDIO_FORCE, MODAL_DISPLACEMENT, GENERIC})
 class AdaptiveNoiseGate(BaseProcessor):
     """
     Adaptive noise gate driven by an optional force-envelope side channel
