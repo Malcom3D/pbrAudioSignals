@@ -20,7 +20,7 @@ import numpy as np
 import numba as nb
 
 from ..core.processor import BaseProcessor, register_processor
-from ..core.groups import AUDIO_SIGNAL, ACOUSTIC_PRESSURE, GENERIC
+from ..core.groups import AUDIO_SIGNAL, ACOUSTIC_PRESSURE, AUDIO_FORCE, GENERIC
 
 @nb.njit(cache=True, nogil=True, fastmath=True)
 def _smooth_env_1d(env: np.ndarray, attack: np.int64, release: np.int64) -> np.ndarray:
