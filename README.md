@@ -3,6 +3,8 @@ pbrAudioSignals
 
 Non-destructive audio signal processing libraries repository for the pbrAudioStorage DAG.
 
+ref: https://www.modalshop.com/docs/themodalshoplibraries/presentations/modal-excitation-tutorial.pdf
+
 ## License
 
 This project is licensed under the **GNU General Public License v3.0 or later**.
