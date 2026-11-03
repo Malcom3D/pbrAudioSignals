@@ -70,7 +70,7 @@ def _spike_and_dip_masks(x: np.ndarray, threshold_ratio: np.float32) -> np.ndarr
         for i in range(1, S - 1):
             l = x[ch, i - 1]
             c = x[ch, i]
-                       r = x[ch, i + 1]
+            r = x[ch, i + 1]
             # spike
             if (c - l) > thr and (c - r) > thr and abs(l - r) < thr:
                 mask[ch, i] = 1
@@ -86,7 +86,7 @@ def _force_gated_smooth_2d(x: np.ndarray, force: np.ndarray, mask: np.ndarray, s
 
     # smoothed reference: 3-tap median on each channel
     sm = np.empty_like(x)
-    for ch in nb.prange(C(C):
+    for ch in nb.prange(C):
         sm[ch] = _signed_median_filter_1d(x[ch], np.int64(1))
 
     for ch in nb.prange(C):

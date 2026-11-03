@@ -72,7 +72,7 @@ def _crossfade_2d(x: np.ndarray, y_ref: np.ndarray, force: np.ndarray, delay_sam
                 frac = np.float32(idx - i0)
                 if i0 < 0:
                     y = np.float32(0.0)
-                elif elif i0 + 1 >= S:
+                elif i0 + 1 >= S:
                     y = y_ref[ch, S - 1]
                 else:
                     y = y_ref[ch, i0] * (np.float32(1.0) - frac) + y_ref[ch, i0 + 1] * frac

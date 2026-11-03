@@ -32,7 +32,7 @@ def get_force_sequence(props) -> Optional[ForceDataSequence]:
     """Return the ForceDataSequence injected by StorageEngine, or None."""
     if props is None:
         return None
-    custom custom = getattr(props, "custom", None)
+    custom = getattr(props, "custom", None)
     if not isinstance(custom, dict):
         return None
     seq = custom.get("force")
@@ -85,7 +85,6 @@ def eval_at_frame(seq: ForceDataSequence, frame_idx: float, attr: str) -> float:
         # Vector getter (normal_force / tangential_force / velocities)
         return float(np.linalg.norm(np.nan_to_num(value, nan=0.0)))
     return _safe_eval(value)
-
 
 def eval_contact_type(seq: ForceDataSequence, frame_idx: float) -> int:
     """Return the ContactType.value at the given frame (0 for none)."""

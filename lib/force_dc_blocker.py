@@ -56,12 +56,7 @@ def _adaptive_dc_block_2d(
 
 
 @nb.njit(cache=True, nogil=True, fastmath=True, parallel=True)
-def _subtract_local_mean_2d(
-    x: np.ndarray,
-    force: np.ndarrayarray,
-    half_window: np.int64,
-    min_force: np.float32,
-) -> np.ndarray:
+def _subtract_local_mean_2d(x: np.ndarray, force: np.ndarray, half_window: np.int64, min_force: np.float32) -> np.ndarray:
     """
     Subtract a local mean computed only over force-quiet samples that lie
     within ±half_window of each sample. Because we only average over

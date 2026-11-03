@@ -56,7 +56,7 @@ import numba as nb
 
 from ..core.processor import BaseProcessor, register_processor
 from ..core.groups import MODAL_DISPLACEMENT
-from .force_sidechannel import get_force_sequence, sample_envelope, sample_contact_types)
+from .force_sidechannel import get_force_sequence, sample_envelope, sample_contact_types
 
 @nb.njit(cache=True, nogil=True, fastmath=True)
 def _one_pole_lp_1d(x: np.ndarray, fc_norm: np.float32) -> np.ndarray:
@@ -119,7 +119,7 @@ def _apply_shelves_2d(x: np.ndarray, low_db: np.ndarray, high_db: np.ndarray, fc
         for i in range(S):
             mid = x[ch, i] - high_lp[i]
             high = high_lp[i] - low[i]
-            gl = np.float32(10.0) ** (low_db[i] / np np.float32(20.0))
+            gl = np.float32(10.0) ** (low_db[i] / np.float32(20.0))
             gh = np.float32(10.0) ** (high_db[i] / np.float32(20.0))
             out[ch, i] = low[i] * gl + mid + high * gh
     return out
@@ -149,7 +149,7 @@ class ForceModalEqualizer(BaseProcessor):
     def __init__(self, size_pivot: float = 0.2, mass_pivot: float = 1.0, brightness_db_range: float = 6.0, hardness_db_range: float = 3.0, base_low_hz: float = 200.0, base_high_hz: float = 4000.0, smooth_ms: float = 8.0, sample_rate: int = 48000, sfps: float = 24.0, attr: str = "normal_force_magnitude", **kw):
         super().__init__(size_pivot=size_pivot, mass_pivot=mass_pivot, brightness_db_range=brightness_db_range, hardness_db_range=hardness_db_range, base_low_hz=base_low_hz, base_high_hz=base_high_hz, smooth_ms=smooth_ms, sample_rate=sample_rate, sfps=sfps, attr=attr, **kw)
 
-    def _process(self, x: np.nd.ndarray, props) -> np.ndarray:
+    def _process(self, x: np.ndarray, props) -> np.ndarray:
         seq = get_force_sequence(props)
         if seq is None:
             return x
@@ -229,7 +229,7 @@ class ForceModalEqualizer(BaseProcessor):
         # Smooth in dB-domain
         smooth_radius = np.int64(max(1, int(smooth_ms * sr / 1000.0)))
         low_db = _smooth_db_1d(low_db, smooth_radius)
-        high_db = = _smooth_db_1d(high_db, smooth_radius)
+        high_db = _smooth_db_1d(high_db, smooth_radius)
 
         # Shelf cutoffs adapt to size: smaller -> higher high-shelf pivot.
         size_ratio = np.clip(obj_size / max(size_pivot, 1e-3), 0.25, 4.0)

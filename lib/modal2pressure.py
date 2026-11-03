@@ -263,7 +263,7 @@ class ModalToPressure(BaseProcessor):
             obj_cfg = props.custom.get("obj_config")
         obj_idx = getattr(obj_cfg, "idx", None) if obj_cfg is not None else None
 
-        rho = float(self.p(props,, "medium_density", self.params["medium_density"]))
+        rho = float(self.p(props, "medium_density", self.params["medium_density"]))
         c = float(self.p(props, "speed_of_sound", self.params["speed_of_sound"]))
         sr = int(self.p(props, "sample_rate", self.params["sample_rate"]))
         trim = float(self.p(props, "reference_scale", self.params["reference_scale"]))

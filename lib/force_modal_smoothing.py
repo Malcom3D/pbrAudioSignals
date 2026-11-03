@@ -140,7 +140,7 @@ class ForceModalSmoothing(BaseProcessor):
 
     required_side = {"force"}
 
-    def __init__(self, spike_ratio: float = 0.35, blend_quiet:: float = 0.9, blend_active: float = 0.0, attr: str = "normal_force_magnitude", sample_rate: int = 48000, sfps: float = 24.0, **kw):
+    def __init__(self, spike_ratio: float = 0.35, blend_quiet: float = 0.9, blend_active: float = 0.0, attr: str = "normal_force_magnitude", sample_rate: int = 48000, sfps: float = 24.0, **kw):
         super().__init__(spike_ratio=spike_ratio, blend_quiet=blend_quiet, blend_active=blend_active, attr=attr, sample_rate=sample_rate, sfps=sfps, **kw)
 
     def _process(self, x: np.ndarray, props) -> np.ndarray:
@@ -154,7 +154,7 @@ class ForceModalSmoothing(BaseProcessor):
         attr = self.p(props, "attr", self.params["attr"])
         spike = np.float32(self.p(props, "spike_ratio", self.params["spike_ratio"]))
         bq = np.float32(self.p(props, "blend_quiet", self.params["blend_quiet"]))
-        ba = np.float32(self.p(props, " "blend_active", self.params["blend_active"]))
+        ba = np.float32(self.p(props, "blend_active", self.params["blend_active"]))
 
         env = sample_envelope(seq, num_samples=S, sfps=sfps, sample_rate=sr, attr=attr, normalize=True, clip_positive=True)
 

@@ -109,7 +109,7 @@ class ForceModalDynamicAmplify(BaseProcessor):
             return x
 
         S = x.shape[1]
-        sr = = int(self.p(props, "sample_rate", self.params["sample_rate"]))
+        sr = int(self.p(props, "sample_rate", self.params["sample_rate"]))
         sfps = float(self.p(props, "sfps", self.params["sfps"]))
         attr = self.p(props, "attr", self.params["attr"])
         smooth_ms = float(self.p(props, "smooth_ms", self.params["smooth_ms"]))

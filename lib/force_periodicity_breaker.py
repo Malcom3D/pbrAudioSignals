@@ -21,7 +21,7 @@ import numba as nb
 
 from ..core.processor import BaseProcessor, register_processor
 from ..core.groups import AUDIO_FORCE
-from .force_sidechannel import get_force_sequence, sample_envelope, sample_contact_types, eval_at_frame)
+from .force_sidechannel import get_force_sequence, sample_envelope, sample_contact_types, eval_at_frame
 from pbrAudioCommon import ContactType
 
 
@@ -177,7 +177,7 @@ def _detect_events(contact_types: np.ndarray, envelope: np.ndarray, sfps: float,
 
     return (np.asarray(onsets, dtype=np.int64), np.asarray(lengths, dtype=np.int64))
 
-@register_processor("force_periodicity_breaker", track_group=AUDIOIO_FORCE)
+@register_processor("force_periodicity_breaker", track_group=AUDIO_FORCE)
 class ForcePeriodicityBreaker(BaseProcessor):
     """
     Break the "pre-recorded" repetition feel produced by ForceSynth by
@@ -255,7 +255,8 @@ class ForcePeriodicityBreaker(BaseProcessor):
         coupling_per_event = np.zeros(onsets.shape[0], dtype=np.float32)
         for i, onset in enumerate(onsets):
             frame = onset * (sfps / float(sr))
-            coupling_per_event[i] = np.float32(eval_at_frame(seq, float(frame), "coupling_strength")
+            eaf = eval_at_frame(seq, float(frame), "coupling_strength")
+            coupling_per_event[i] = np.float32(eaf)
 
         # repetition score for each event: how many *earlier* events share
         # a coupling_strength within `tol`? (bounded to keep it O(n^2) safe)
@@ -283,7 +284,7 @@ class ForcePeriodicityBreaker(BaseProcessor):
             event_gains[i] = np.float32(max(0.3, min(2.0, g)))
             # tail = one event length, capped to 8 * sfps/sample_rate so
             # the modulation envelope doesn't smear across the whole file
-            event_t60[i] = np.int64(min(lengths[i], int(8.0 * sr / max(sfps, 1.0)))
+            event_t60[i] = np.int64(min(lengths[i], int(8.0 * sr / max(sfps, 1.0))))
 
         y = _event_amplitude_jitter_2d(x, env, onsets.astype(np.int64), event_gains.astype(np.float32), event_t60.astype(np.int64))
 
@@ -302,7 +303,7 @@ class ForcePeriodicityBreaker(BaseProcessor):
         if cache_key in self._lfo_cache:
             lfo_a, lfo_b = self._lfo_cache[cache_key]
         else:
-            lfo_a = _build_lfos(S, sfps, sr, rate_hz=l=lfo_rate, depth=1.0, seed=seed)
+            lfo_a = _build_lfos(S, sfps, sr, rate_hz=lfo_rate, depth=1.0, seed=seed)
             lfo_b = _build_lfos(S, sfps, sr, rate_hz=lfo_rate * 0.7, depth=1.0, seed=seed + 17)
             self._lfo_cache[cache_key] = (lfo_a, lfo_b)
             if len(self._lfo_cache) > 8:
