@@ -47,6 +47,12 @@ from .lib.force_phase_align import ForcePhaseAlign
 from .lib.force_spectral_denoise import ForceSpectralDenoise
 from .lib.force_adaptive_smoothing import ForceAdaptiveSmoothing
 
+# AUDIO-FORCE only
+from .lib.force_dc_blocker import DCBlockerForce
+from .lib.force_envelope_smoothing import ForceEnvelopeSmoothing
+from .lib.force_spectral_leak import ForceSpectralLeakReduce
+from .lib.force_periodicity_breaker import ForcePeriodicityBreaker
+
 __all__ = [
     "BaseProcessor",
     "register_processor",
@@ -70,4 +76,8 @@ __all__ = [
     "ForcePhaseAlign",
     "ForceSpectralDenoise",
     "ForceAdaptiveSmoothing",
+    "DCBlockerForce",
+    "ForceEnvelopeSmoothing",
+    "ForceSpectralLeakReduce",
+    "ForcePeriodicityBreaker"
 ]
