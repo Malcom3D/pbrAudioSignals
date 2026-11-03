@@ -53,6 +53,15 @@ from .lib.force_envelope_smoothing import ForceEnvelopeSmoothing
 from .lib.force_spectral_leak import ForceSpectralLeakReduce
 from .lib.force_periodicity_breaker import ForcePeriodicityBreaker
 
+# MODAL_DISPLACEMENT only
+from lib.force_modal_dc_blocker import ForceModalDCBlocker
+from lib.force_modal_smoothing import ForceModalSmoothing
+from lib.force_modal_phase_align import ForceModalPhaseAlign
+from lib.force_modal_dynamic_amplify import ForceModalDynamicAmplify
+from lib.force_modal_compressor import ForceModalCompressor
+from lib.force_modal_equalizer import ForceModalEqualizer
+from lib.modal2pressure import ModalToPressure
+
 __all__ = [
     "BaseProcessor",
     "register_processor",
@@ -79,5 +88,16 @@ __all__ = [
     "DCBlockerForce",
     "ForceEnvelopeSmoothing",
     "ForceSpectralLeakReduce",
-    "ForcePeriodicityBreaker"
+    "ForcePeriodicityBreaker",
+    "ForceModalDCBlocker",
+    "ForceEnvelopeSmoothing",
+    "ForceSpectralLeakReduce",
+    "ForcePeriodicityBreaker",
+    "ForceModalDCBlocker",
+    "ForceModalSmoothing",
+    "ForceModalPhaseAlign",
+    "ForceModalDynamicAmplify",
+    "ForceModalCompressor",
+    "ForceModalEqualizer",
+    "ModalToPressure",
 ]
