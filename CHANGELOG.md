@@ -25,3 +25,26 @@
 - Fixed storage root paths in CollisionExporter and RenderExporter, and indentation issues in Blender property groups.
 - Fixed missing dependencies and module import errors (such as missing `zarr` and incorrect module paths).
 - Fixed various syntax, indentation, and name errors across the codebase.
+
+# pbrAudioDAW
+## [v0.3.0] - 2026-11-05
+
+### Added
+- New Text User Interface (TUI) for pbrAudioDAW.
+- 3D viewport panel and interactive widget GUI integration in pbrAudioBlender.
+- Modal displacement, audio forces, and mono modal displacement to acoustic pressure processors in pbrAudioSignals.
+- `track_group` support in pbrAudioSignals for organizing processors across DAG nodes and edges.
+- Post-processing metadata classes (`postProcess` and `SynthPostProcess`) for describing rigid-body and synth post-processing chains.
+- Metadata editing methods in `StorageEngine` for modifying backend storage metadata.
+- BZ2 compression and decompression support in `KleptoEntityStore` (`pbrAudioCommon`).
+
+### Changed
+- Rewrote `pbrAudioStorage` core and updated `Blosc2Backend` to support parallel appending and memory-mapped mode.
+- Aligned `rigidBody` and `physicsSolver` post-processing classes with updated storage and signal processing features.
+
+### Fixed
+- Fixed out-of-memory (OOM) errors in `ModalComposer` (`rigidBody`).
+- Fixed alignment issues between signal data and `ScoreEvent` in physics solvers and storage.
+- Resolved missing module (`zarr`) errors and fixed export root paths in pbrAudioBlender.
+- Fixed duplicate schema registrations and metadata update bugs in `Blosc2Backend`.
+- Resolved various syntax errors, incorrect indentations, variable naming mismatches, and import issues across all modules.
