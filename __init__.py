@@ -60,6 +60,8 @@ from .lib.force_modal_phase_align import ForceModalPhaseAlign
 from .lib.force_modal_dynamic_amplify import ForceModalDynamicAmplify
 from .lib.force_modal_compressor import ForceModalCompressor
 from .lib.force_modal_equalizer import ForceModalEqualizer
+from .lib.force_modal_radiation_calibrator import ForceModalRadiationCalibrator
+from .lib.force_modal_contact_tilt import ForceModalContactTilt
 from .lib.modal2pressure import ModalToPressure
 
 __all__ = [
@@ -99,5 +101,6 @@ __all__ = [
     "ForceModalDynamicAmplify",
     "ForceModalCompressor",
     "ForceModalEqualizer",
+    "ForceModalRadiationCalibrator",
     "ModalToPressure",
 ]
