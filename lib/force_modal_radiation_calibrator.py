@@ -115,8 +115,7 @@ def _apply_static_gain_2d(x: np.ndarray, gain: np.float32) -> np.ndarray:
 
 
 @nb.njit(cache=True, nogil=True, fastmath=True, parallel=True)
-def _apply_gain_envelopevelope_2d(x: np.ndarray,
-                            gain_env: np.ndarray) -> np.ndarray:
+def _apply_gain_envelopevelope_2d(x: np.ndarray, gain_env: np.ndarray) -> np.ndarray:
     """Per-sample gain from a precomputed envelope (shape S,)."""
     C, S = x.shape
     out = np.empty_like(x)
@@ -159,7 +158,7 @@ class ForceModalRadiationCalibrator(BaseProcessor):
     target_rms_active     : float, default 0.15  # RMS inside force-active windows
     force_threshold       : float, default 0.05  # force envelope activity threshold
     env_smooth_ms         : float, default 5.0   # smooths the envelope that gates RMS
-    mode                : str,   default "static"
+    mode                  : str,   default "static"
                             "static"     -> uniform gain
                             "force_rms"  -> gain + force-windowed peak limiter
 
@@ -200,7 +199,7 @@ class ForceModalRadiationCalibrator(BaseProcessor):
             mode=mode,
             sample_rate=sample_rate,
             sfps=sfps,
-            attr==attr,
+            attr=attr,
             **kw,
         )
 
@@ -272,8 +271,7 @@ class ForceModalRadiationCalibrator(BaseProcessor):
         # Surface area: acoustic power per unit modal displacement
         # scales as A^2 -> dB. Mass: perceptual loudness grows with
         # log(mass) because of the energy-per-unit-force relationship.
-        db = 20.0 * area_weight * np.log10(area_ratio) \
-             + 10.0 * mass_weight * np.log10(mass_ratio)
+        db = 20.0 * area_weight * np.log10(area_ratio) + 10.0 * mass_weight * np.log10(mass_ratio)
 
         # Hard clamp so a badly-annotated scene cannot blow up.
         if db > max_db:

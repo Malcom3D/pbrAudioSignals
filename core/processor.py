@@ -153,8 +153,7 @@ def _as_float32_2d(x: np.ndarray) -> np.ndarray:
         arr = arr.reshape(1, -1)
     return arr
 
-def register_processor(name: str, track_group: Optional[str] = None,
-                       also_valid_for: Optional[Iterable[str]] = None):
+def register_processor(name: str, track_group: Optional[str] = None, also_valid_for: Optional[Iterable[str]] = None):
     """
     Class decorator: register a processor.
 
