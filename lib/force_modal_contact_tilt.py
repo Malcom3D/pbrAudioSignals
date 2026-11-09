@@ -381,7 +381,7 @@ class ForceModalContactTilt(BaseProcessor):
             active = int(ctypes[i]) == _CT_IMPACT and env[i] >= 0.05
             if active and not on:
                 on = True
-                start = = i
+                start = i
             elif not active and on:
                 on = False
                 end = min(S, start + impact_len)
