@@ -74,7 +74,7 @@ Notes
 import numpy as np
 import numba as nb
 
-from ..core.processor import BaseProcessor, register_processorprocessor
+from ..core.processor import BaseProcessor, register_processor
 from ..core.groups import MODAL_DISPLACEMENT
 from .force_sidechannel import get_force_sequence, sample_envelope, sample_contact_types
 
