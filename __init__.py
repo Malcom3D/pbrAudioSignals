@@ -30,18 +30,14 @@ decimals = 18
 np.set_printoptions(precision=decimals, floatmode='fixed', threshold=np.inf)
 
 from .core.processor import BaseProcessor, register_processor, get_processor
-from .lib.dc_blocker import DCBlocker
-from .lib.noise_gate import AdaptiveNoiseGate
-from .lib.temporal_smoothing import TemporalSmoothing
-from .lib.spectral_denoise import SpectralDenoise
-from .lib.envelope_shaper import EnvelopeShaper
-from .lib.adaptive_gaussian import AdaptiveGaussianSmoothing
-from .lib.force_weighted import ForceWeightedGain, ForceWeightedBlend
-from .lib.normalize import GlobalNormalize, PerTrackNormalize
 from .lib.chain import ChainProcessor
-from .lib.ambi_decode import AmbisonicDecoder
 from .lib.plugin_processor import PluginProcessor
 from .lib.plugin_host import PluginHost, HostNotAvailable
+
+# GENERIC
+from .lib.normalize import GlobalNormalize, PerTrackNormalize
+
+# AUDIO-FORCE and MODAL_DISPLACEMENT
 from .lib.force_dynamic_amplify import ForceDynamicAmplify
 from .lib.force_phase_align import ForcePhaseAlign
 from .lib.force_spectral_denoise import ForceSpectralDenoise
