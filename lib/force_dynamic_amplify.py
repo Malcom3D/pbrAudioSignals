@@ -16,14 +16,11 @@
 # along with pbrAudio.  If not, see <https://www.gnu.org/licenses/>.
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-# pbrAudioSignals/lib/force_dynamic_amplify.py
-
 import numpy as np
 import numba as nb
 
 from ..core.processor import BaseProcessor, register_processor
 from ..core.groups import MODAL_DISPLACEMENT, AUDIO_FORCE
-
 
 @nb.njit(cache=True, nogil=True, fastmath=True)
 def _box_smooth_1d(x: np.ndarray, half: np.int64) -> np.ndarray:
@@ -46,14 +43,8 @@ def _box_smooth_1d(x: np.ndarray, half: np.int64) -> np.ndarray:
         out[i] = acc / np.float32(denom) if denom > 0 else x[i]
     return out
 
-
 @nb.njit(cache=True, nogil=True, fastmath=True, parallel=True)
-def _dynamic_amplify_2d(x: np.ndarray,
-                        force: np.ndarray,
-                        base_gain: np.float32,
-                        max_gain_lin: np.float32,
-                        compression: np.float32,
-                        smooth_radius: np.int64) -> np.ndarray:
+def _dynamic_amplify_2d(x: np.ndarray, force: np.ndarray, base_gain: np.float32, max_gain_lin: np.float32, compression: np.float32, smooth_radius: np.int64) -> np.ndarray:
     """
     Per-sample gain = base_gain * force_gain_compressed, exactly as in
     old SynthPostProcess._dynamic_amplify.
@@ -103,9 +94,7 @@ def _dynamic_amplify_2d(x: np.ndarray,
             out[ch, i] = x[ch, i] * base_gain * gain_env[i]
     return out
 
-@register_processor("force_dynamic_amplify",
-                    track_group=MODAL_DISPLACEMENT,
-                    also_valid_for={AUDIO_FORCE})
+@register_processor("force_dynamic_amplify", track_group=MODAL_DISPLACEMENT, also_valid_for={AUDIO_FORCE})
 class ForceDynamicAmplify(BaseProcessor):
     """
     Force-envelope-driven dynamic amplification with compression.
@@ -127,17 +116,8 @@ class ForceDynamicAmplify(BaseProcessor):
 
     required_side = {"force"}
 
-    def __init__(self,
-                 target_rms: float = 0.15,
-                 max_gain_db: float = 20.0,
-                 dynamic_range_compression: float = 0.5,
-                 smooth_ms: float = 5.0,
-                 sample_rate: int = 48000, **kw):
-        super().__init__(target_rms=target_rms,
-                                                 max_gain_db=max_gain_db,
-                         dynamic_range_compression=dynamic_range_compression,
-                         smooth_ms=smooth_ms,
-                         sample_rate=sample_rate, **kw)
+    def __init__(self, target_rms: float = 0.15, max_gain_db: float = 20.0, dynamic_range_compression: float = 0.5, smooth_ms: float = 5.0, sample_rate: int = 48000, **kw):
+        super().__init__(target_rms=target_rms, max_gain_db=max_gain_db, dynamic_range_compression=dynamic_range_compression, smooth_ms=smooth_ms, sample_rate=sample_rate, **kw)
 
     def _process(self, x, props):
         S = x.shape[1]
@@ -147,8 +127,7 @@ class ForceDynamicAmplify(BaseProcessor):
 
         target_rms = float(self.p(props, "target_rms", self.params["target_rms"]))
         max_gain_db = float(self.p(props, "max_gain_db", self.params["max_gain_db"]))
-        comp = float(self.p(props, "dynamic_range_compression",
-                            self.params["dynamic_range_compression"]))
+        comp = float(self.p(props, "dynamic_range_compression", self.params["dynamic_range_compression"]))
         smooth_ms = float(self.p(props, "smooth_ms", self.params["smooth_ms"]))
         sr = int(self.p(props, "sample_rate", self.params["sample_rate"]))
 
@@ -164,10 +143,4 @@ class ForceDynamicAmplify(BaseProcessor):
 
         smooth_radius = np.int64(max(1, int(smooth_ms * sr / 1000.0)))
 
-        return _dynamic_amplify_2d(
-            x, force,
-            np.float32(base_gain),
-            np.float32(max_lin),
-            np.float32(comp),
-            smooth_radius,
-        )
+        return _dynamic_amplify_2d(x, force, np.float32(base_gain), np.float32(max_lin), np.float32(comp), smooth_radius)
