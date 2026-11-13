@@ -37,6 +37,9 @@ from .lib.plugin_host import PluginHost, HostNotAvailable
 # GENERIC
 from .lib.normalize import GlobalNormalize, PerTrackNormalize
 
+# AMBISONIC
+from .lib.ambi_decode import AmbisonicDecoder
+
 # AUDIO-FORCE and MODAL_DISPLACEMENT
 from .lib.force_dynamic_amplify import ForceDynamicAmplify
 from .lib.force_phase_align import ForcePhaseAlign
@@ -64,14 +67,7 @@ __all__ = [
     "BaseProcessor",
     "register_processor",
     "get_processor",
-    "DCBlocker",
-    "AdaptiveNoiseGate",
-    "TemporalSmoothing",
-    "SpectralDenoise",
     "EnvelopeShaper",
-    "AdaptiveGaussianSmoothing",
-    "ForceWeightedGain",
-    "ForceWeightedBlend",
     "GlobalNormalize",
     "PerTrackNormalize",
     "ChainProcessor",
