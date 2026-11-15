@@ -136,7 +136,7 @@ class ForceEnvelopeSmoothing(BaseProcessor):
     required_side = {"force"}
 
     def __init__(self, spike_ratio: float = 0.35, smooth_strength_quiet: float = 0.9, smooth_strength_active: float = 0.0, attr: str = "normal_force_magnitude", sample_rate: int = 48000, sfps: float = 24.0, **kw):
-        super().__init__(spike_ratio=spike_ratio, smooth_strength_quiet=smooth_strength__quiet, smooth_strength_active=smooth_strength_active, attr=attr, sample_rate=sample_rate, sfps=sfps, **kw)
+        super().__init__(spike_ratio=spike_ratio, smooth_strength_quiet=smooth_strength_quiet, smooth_strength_active=smooth_strength_active, attr=attr, sample_rate=sample_rate, sfps=sfps, **kw)
 
     def _process(self, x: np.ndarray, props) -> np.ndarray:
         seq = get_force_sequence(props)
