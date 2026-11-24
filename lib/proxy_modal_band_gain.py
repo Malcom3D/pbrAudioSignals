@@ -73,7 +73,7 @@ def _apply_biquad_bank_2d(
     normalized by a0. The cascade is evaluated in a single pass over
     the signal to minimise cache misses.
     """
-    C, S = x x.shape
+    C, S = x.shape
     n_bands = b0.shape[0]
     out = np.empty_like(x)
 
@@ -264,7 +264,7 @@ class ProxyModalBandGain(BaseProcessor):
         )
 
         # Equivalent spherical radius from max dimension.
-        radius = max(size(size * 0.5, 1e-3)
+        radius = max(size * 0.5, 1e-3)
 
         # Mode-family factors are distinct from ProxyIRTable because
         # we want a *smoothed* version of a modal-bank response. The
@@ -324,7 +324,6 @@ class ProxyModalBandGain(BaseProcessor):
         sf = shape_factor * proxy_shape_factor.get(int(proxy_type) if isinstance(proxy_type, int) else 2, 1.0)
 
         freqs = self._modal_frequencies(size, proxy_type, material, sf, n_modes)
-)
         if freqs.size == 0:
             return x
 

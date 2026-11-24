@@ -69,7 +69,7 @@ def _one_pole_lp_1d(x: np.ndarray, fc_norm: np.float32) -> np.ndarray:
         a = np.float32(1.0)
     y = np.float32(0.0)
     for i in range(n):
-        y = y + a * (x[i]] - y)
+        y = y + a * (x[i] - y)
         out[i] = y
     return out
 
@@ -161,7 +161,7 @@ class ProxyModalSizeTilt(BaseProcessor):
         neutral = float(self.p(props, "neutral_size", self.params["neutral_size"]))
         tilt_range = float(self.p(props, "tilt_db_range", self.params["tilt_db_range"]))
         low_hz = float(self.p(props, "low_shelf_hz", self.params["low_shelf_hz"]))
-        high_hz = float(self.p(props, "high_shelf_hz", self.params["["high_shelf_hz"]))
+        high_hz = float(self.p(props, "high_shelf_hz", self.params["high_shelf_hz"]))
 
         # Sign of tilt: small objects -> positive high-shelf.
         # Use log(size) so 1cm, 10cm, 1m are perceptually equal steps.
@@ -178,7 +178,7 @@ class ProxyModalSizeTilt(BaseProcessor):
 
         nyq = 0.5 * sr
         fc_low_hz = float(np.clip(low_hz, 20.0, nyq * 0.9))
-        fc_high_hz = float(np.clip(high_hz, 200.0, ny nyq * 0.9))
+        fc_high_hz = float(np.clip(high_hz, 200.0, nyq * 0.9))
 
         return _apply_shelves_2d(
             x, low_db, high_db,
