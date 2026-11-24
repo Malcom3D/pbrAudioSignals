@@ -63,6 +63,12 @@ from .lib.force_modal_radiation_calibrator import ForceModalRadiationCalibrator
 from .lib.force_modal_contact_tilt import ForceModalContactTilt
 from .lib.modal2pressure import ModalToPressure
 
+# proxy_synth MODAL_DISPLACEMENT only
+from .lib.proxy_modal_contact_eq import ProxyModalContactEq
+from .lib.proxy_modal_force_dynamic_eq import ProxyModalForceDynamicEq
+from .lib.proxy_modal_size_tilt import ProxyModalSizeTilt
+from .lib.proxy_modal_band_gain import ProxyModalBandGain
+
 __all__ = [
     "BaseProcessor",
     "register_processor",
@@ -95,4 +101,8 @@ __all__ = [
     "ForceModalEqualizer",
     "ForceModalRadiationCalibrator",
     "ModalToPressure",
+    "ProxyModalContactEq",
+    "ProxyModalForceDynamicEq",
+    "ProxyModalSizeTilt",
+    "ProxyModalBandGain",
 ]
